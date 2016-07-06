@@ -43,6 +43,22 @@ log_config = /etc/openstack/logging.conf
 log_file = /var/log/cinder/cinder.log
 <% end %>
 
+# ================= SSL Options ===============================
+
+<% if node['openstack']['block-storage']['ssl']['enabled'] -%>
+# Certificate file to use when starting API server securely
+ssl_cert_file = <%= node['openstack']['block-storage']['ssl']['cert_file'] %>
+
+# Private key file to use when starting API server securely
+ssl_key_file = <%= node['openstack']['block-storage']['ssl']['key_file'] %>
+
+<% if node['openstack']['block-storage']['ssl']['cert_required'] -%>
+# CA certificate file to use to verify connecting clients
+ssl_ca_file = <%=node['openstack']['block-storage']['ssl']['ca_file'] %>
+<% end -%>
+<% end -%>
+
+
 ######## defined in cinder.flags ########
 
 # connection_type=<None>
